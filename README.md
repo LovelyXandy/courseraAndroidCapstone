@@ -1,2 +1,3 @@
 # courseraAndroidCapstone
-Meta's Coursera Android Capstoneproject
+Meta's Coursera Android Capstone project
+All great
