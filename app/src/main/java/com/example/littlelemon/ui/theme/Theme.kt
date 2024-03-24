@@ -6,7 +6,8 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 
 private val LightColorPalette = lightColorScheme(
-    primary = LittleLemonColor.yellow,
+    primary = LittleLemonColor.green,
+    onPrimary = LittleLemonColor.yellow,
     secondary = LittleLemonColor.pink
 )
 

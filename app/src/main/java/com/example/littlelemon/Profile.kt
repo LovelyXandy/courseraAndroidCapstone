@@ -1,7 +1,5 @@
 package com.example.littlelemon
-
 import android.content.Context
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -16,10 +14,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -32,18 +28,19 @@ import androidx.navigation.NavController
 import com.example.littlelemon.ui.theme.LittleLemonColor
 
 @Composable
-fun Onboarding(navController: NavController?){
-    var firstName : String by remember { mutableStateOf("") }
-    var lastName : String by remember { mutableStateOf("") }
-    var email: String by remember { mutableStateOf("") }
+fun Profile(navController: NavController?){
     val context = LocalContext.current
+    //get data
     val sharedPreferences = context.getSharedPreferences("LemonStorage", Context.MODE_PRIVATE)
-
+    var firstName = remember { mutableStateOf(sharedPreferences.getString("firstName", "")) }
+    var lastName = remember { mutableStateOf(sharedPreferences.getString("lastName", "")) }
+    var email = remember { mutableStateOf(sharedPreferences.getString("email", "")) }
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally,
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top,
             modifier = Modifier
                 .fillMaxHeight(0.25F)
@@ -52,7 +49,7 @@ fun Onboarding(navController: NavController?){
                 painter = painterResource(
                     id = R.drawable.logo,
 
-                ),
+                    ),
                 contentScale = ContentScale.FillHeight,
                 contentDescription = "Logo Image",
                 modifier = Modifier
@@ -63,7 +60,7 @@ fun Onboarding(navController: NavController?){
                     .padding(top = 20.dp, bottom = 20.dp, start=20.dp, end=20.dp).fillMaxWidth()
             ) {
                 Text(
-                    "Let's get to know you",
+                    "Profile",
                     style = MaterialTheme.typography.headlineLarge,
                     color = LittleLemonColor.cloud,
                     textAlign= TextAlign.Center,
@@ -80,63 +77,43 @@ fun Onboarding(navController: NavController?){
                 modifier = Modifier.fillMaxWidth()
             )
         }
-            TextField(
-            value = firstName,
-            onValueChange = { firstName = it },
+        TextField(
+            value = firstName.value!!,
+            enabled=false,
+            onValueChange = { firstName.value = it},
             label = { Text(text = "First Name") },
         )
         TextField(
-            value = lastName,
-            onValueChange = { lastName = it },
+            value = lastName.value!!,
+            enabled=false,
+            onValueChange = { lastName.value = it },
             label = { Text(text = "Last Name") },
         )
         TextField(
-            value = email,
-            onValueChange = { email = it },
+            value = email.value!!,
+            enabled=false,
+            onValueChange = { email.value = it },
             label = { Text(text = "E-mail address") },
         )
         Button(
             onClick = {
-                      if(
-                          firstName.isNotBlank() &&
-                          lastName.isNotBlank() &&
-                          email.isNotBlank()
-                      ){
-                          sharedPreferences.edit()
-                              .putString("firstName", firstName)
-                              .putString("lastName", lastName)
-                              .putString("email", email)
-                              .putBoolean("registered", true)
-                              .apply()
-                          Toast.makeText(
-                              context,
-                              "Registration successful. Thank You!",
-                              Toast.LENGTH_LONG
-                          ).show()
-                          navController?.navigate(Home.route)
-                      } else{
-                          Toast.makeText(
-                              context,
-                              "Registration unsuccessful.\nPlease enter all data.",
-                              Toast.LENGTH_LONG
-                          ).show()
-                      }
+                sharedPreferences.edit().clear().apply()
+                navController?.navigate(Onboarding.route)
             },
             modifier = Modifier.fillMaxWidth().padding(20.dp),
             colors = ButtonDefaults.buttonColors(containerColor = LittleLemonColor.yellow,
                 contentColor = LittleLemonColor.green)
         ) {
             Text(
-                text = "Register",
+                text = "Log Out",
                 style = MaterialTheme.typography.bodyLarge
             )
         }
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
-fun OnboardingPreview(){
-    Onboarding(null)
+fun ProfilePreview(){
+    Profile(null)
 }

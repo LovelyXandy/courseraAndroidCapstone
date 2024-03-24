@@ -9,13 +9,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.littlelemon.R
 
+//NEED TO IMPORT ALL FONTS - they should be in one of the other folders!
 private val appFontKarla = FontFamily(
     fonts = listOf(
         Font(
             resId = R.font.karla_regular,
             weight = FontWeight.W900,
             style = FontStyle.Normal
-        )
+        ),
+        Font(
+            resId = R.font.karla_medium,
+            weight = FontWeight.W900,
+            style = FontStyle.Normal
+        ),
+        Font(
+            resId = R.font.karla_bold,
+            weight = FontWeight.W900,
+            style = FontStyle.Normal
+        ),
     )
 )
 
@@ -33,29 +44,29 @@ private val appFontMark = FontFamily(
 
 val Typography = Typography(
     headlineLarge = TextStyle(
-        fontSize = 26.sp,
+        fontSize = 48.sp,
         fontWeight = FontWeight.Bold,
         color = LittleLemonColor.charcoal,
-        fontFamily = appFontKarla
+        fontFamily = appFontMark
     ),
     headlineMedium = TextStyle(
         color = LittleLemonColor.charcoal,
-        fontSize = 18.sp,
+        fontSize = 24.sp,
         fontWeight = FontWeight.Bold,
-        fontFamily = appFontKarla
+        fontFamily = appFontMark
     ),
     bodyMedium = TextStyle(
         color = LittleLemonColor.green,
-        fontFamily = appFontKarla
+        fontFamily = appFontMark
     ),
     bodySmall = TextStyle(
         fontWeight = FontWeight.Bold,
         color = LittleLemonColor.green,
-        fontFamily = appFontKarla
+        fontFamily = appFontMark
     ),
     labelMedium = TextStyle(
         fontSize = 14.sp,
         fontWeight = FontWeight.Bold,
-        fontFamily = appFontKarla
+        fontFamily = appFontMark
     )
 )
