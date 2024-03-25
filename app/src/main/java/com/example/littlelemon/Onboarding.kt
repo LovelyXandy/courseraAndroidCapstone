@@ -23,21 +23,20 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat.getString
 import androidx.navigation.NavController
 import com.example.littlelemon.ui.theme.LittleLemonColor
 
 @Composable
-fun Onboarding(navController: NavController?){
+fun Onboarding(context: Context?, navController: NavController?){
     var firstName : String by remember { mutableStateOf("") }
     var lastName : String by remember { mutableStateOf("") }
     var email: String by remember { mutableStateOf("") }
-    val context = LocalContext.current
-    val sharedPreferences = context.getSharedPreferences("LemonStorage", Context.MODE_PRIVATE)
+    val sharedPreferences by lazy {context!!.getSharedPreferences(getString(context, R.string.sharedPreferenceKey), Context.MODE_PRIVATE)}
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -72,7 +71,7 @@ fun Onboarding(navController: NavController?){
                 //needs a box with a green background?
             }
         }
-        Row(modifier = Modifier.padding(top = 20.dp, bottom = 20.dp, start=20.dp, end=20.dp).fillMaxWidth().align(Alignment.Start)) {
+        Row(modifier = Modifier.padding(top = 10.dp, bottom = 10.dp, start=20.dp, end=20.dp).fillMaxWidth().align(Alignment.Start)) {
             Text(
                 "Personal Information",
                 style = MaterialTheme.typography.headlineMedium,
@@ -106,7 +105,7 @@ fun Onboarding(navController: NavController?){
                               .putString("firstName", firstName)
                               .putString("lastName", lastName)
                               .putString("email", email)
-                              .putBoolean("registered", true)
+                              .putBoolean("userRegistered", true)
                               .apply()
                           Toast.makeText(
                               context,
@@ -138,5 +137,5 @@ fun Onboarding(navController: NavController?){
 @Preview(showBackground = true)
 @Composable
 fun OnboardingPreview(){
-    Onboarding(null)
+    Onboarding(null, null)
 }

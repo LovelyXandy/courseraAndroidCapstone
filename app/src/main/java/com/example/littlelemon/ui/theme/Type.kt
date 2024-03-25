@@ -57,16 +57,16 @@ val Typography = Typography(
     ),
     bodyMedium = TextStyle(
         color = LittleLemonColor.green,
-        fontFamily = appFontMark
+        fontFamily = appFontKarla
     ),
     bodySmall = TextStyle(
         fontWeight = FontWeight.Bold,
         color = LittleLemonColor.green,
-        fontFamily = appFontMark
+        fontFamily = appFontKarla
     ),
     labelMedium = TextStyle(
         fontSize = 14.sp,
         fontWeight = FontWeight.Bold,
-        fontFamily = appFontMark
+        fontFamily = appFontKarla
     )
 )
